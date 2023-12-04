@@ -4,17 +4,17 @@ import { Elements } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
 import {
   CALCULATE_SUBTOTAL,
-  CALCULATE_TOTAL_QUANTITY,
-  selectCartItems,
-  selectCartTotalAmount,
-} from "../../redux/slice/cartSlice";
-import { selectEmail } from "../../redux/slice/authSlice";
+  CALCULATE_CART_QUANTITY,
+  selectedCartItem,
+  selectedCartTotalAmount,
+} from "../../Redux/slice/cartSlice";
+import { selectEmail } from "../../Redux/slice/authSlice";
 import {
   selectBillingAddress,
   selectShippingAddress,
-} from "../../redux/slice/checkoutSlice";
+} from "../../Redux/slice/checkoutSlice";
 import { toast } from "react-toastify";
-import CheckoutForm from "../../components/checkoutForm/CheckoutForm";
+import CheckoutForm from "../../Components/CheckoutForm/CheckoutForm";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 
@@ -22,8 +22,8 @@ const Checkout = () => {
   const [message, setMessage] = useState("Initializing checkout...");
   const [clientSecret, setClientSecret] = useState("");
 
-  const cartItems = useSelector(selectCartItems);
-  const totalAmount = useSelector(selectCartTotalAmount);
+  const cartItems = useSelector(selectedCartItem);
+  const totalAmount = useSelector(selectedCartTotalAmount);
   const customerEmail = useSelector(selectEmail);
 
   const shippingAddress = useSelector(selectShippingAddress);
@@ -32,7 +32,7 @@ const Checkout = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(CALCULATE_SUBTOTAL());
-    dispatch(CALCULATE_TOTAL_QUANTITY());
+    dispatch(CALCULATE_CART_QUANTITY());
   }, [dispatch, cartItems]);
 
   const description = `eShop payment: email: ${customerEmail}, Amount: ${totalAmount}`;

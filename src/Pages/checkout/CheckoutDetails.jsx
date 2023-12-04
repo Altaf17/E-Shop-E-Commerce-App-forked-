@@ -203,8 +203,8 @@ const CheckoutDetails = () => {
                 value={shippingAddress.phone}
                 onChange={(e) => handleBilling(e)}
               />
-              <button type="submit" className="--btn --btn-primary">
-                Proceed To Chechout
+              <button  disabled={true} type="submit" className="--btn ">
+                Proceed To Checkout
               </button>
             </Card>
           </div>

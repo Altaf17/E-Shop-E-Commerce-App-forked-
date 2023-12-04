@@ -5,20 +5,20 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import styles from "./CheckoutForm.module.scss";
-import Card from "../card/Card";
-import CheckoutSummary from "../checkoutSummary/CheckoutSummary";
+import Card from "../Card/Card";
+import CheckoutSummary from "../CheckoutSummary/CheckoutSummary";
 import spinnerImg from "../../assets/spinner.jpg";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { selectEmail, selectUserID } from "../../redux/slice/authSlice";
+import { selectEmail, selectUserID } from "../../Redux/slice/authSlice";
 import {
   CLEAR_CART,
-  selectCartItems,
-  selectCartTotalAmount,
-} from "../../redux/slice/cartSlice";
-import { selectShippingAddress } from "../../redux/slice/checkoutSlice";
+  selectedCartItem,
+  selectedCartTotalAmount,
+} from "../../Redux/slice/cartSlice";
+import { selectShippingAddress } from "../../Redux/slice/checkoutSlice";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
-import { db } from "../../firebase/config";
+import { db } from "../../Firebase/config";
 import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
@@ -32,8 +32,8 @@ const CheckoutForm = () => {
 
   const userID = useSelector(selectUserID);
   const userEmail = useSelector(selectEmail);
-  const cartItems = useSelector(selectCartItems);
-  const cartTotalAmount = useSelector(selectCartTotalAmount);
+  const cartItems = useSelector(selectedCartItem);
+  const cartTotalAmount = useSelector(selectedCartTotalAmount);
   const shippingAddress = useSelector(selectShippingAddress);
 
   useEffect(() => {
